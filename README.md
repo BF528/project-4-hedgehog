@@ -4,7 +4,10 @@ A brief description of what this repository is for and what it contains
 
 # Contributors
 
-List contributor names and github user names, or email addresses if desired
+Mackenzie Knox (Data curator)
+Taylor Falk (Programmer)
+Bettenia "Tina" Cole (Data analyst)
+Saket Pandit (Biologist)
 
 # Repository Contents
 

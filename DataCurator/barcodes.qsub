@@ -1,0 +1,28 @@
+#!/bin/bash -l
+
+#$ -P bf528
+#$ -cwd
+#$ -j y
+#$ -pe mpi_16_tasks_per_node 16
+
+echo "Running job $JOB_ID"
+echo "Started: $(date +%F)"
+echo "Running in directory: $PWD"
+
+#Load modules
+module load R
+
+samples=/projectnb/bf528/project_4_scrnaseq/fastq
+#SRR=(SRR3879604 SRR3879605 SRR3879606)
+
+#Read each run and extract barcode
+zcat $samples/SRR3879604/SRR3879604_1_bc.fastq.gz \
+$samples/SRR3879605/SRR3879605_1_bc.fastq.gz \
+$samples/SRR3879606/SRR3879606_1_bc.fastq.gz | awk '{if(NR%4==2){print substr($1,1,19)}}' |
+sort | uniq -c > counts.txt
+
+#for run in "${SRR[@]}"; do
+#       zcat $samples/$run/$run_1_bc.fastq.qz | head
+#       R --vanilla <
+#done
+

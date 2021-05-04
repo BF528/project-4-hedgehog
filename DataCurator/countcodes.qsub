@@ -1,0 +1,26 @@
+#!/bin/bash
+
+/usr/bin/dos2unix -q ${BASH_ARGV[0]}
+
+#$ -cwd 
+#$ -P bf528 
+#$ -j y 
+#$ -pe mpi_16_tasks_per_node 16
+ 
+s1='SRR3879604'
+s2='SRR3879605'
+s3='SRR3879606'
+
+ 
+
+file1=results/out_${s1}.csv
+file2=results/out_${s2}.csv
+file3=results/out_${s3}.csv
+
+
+
+awk '{BC[$2]++}END{for(i in BC)print(i,BC[i])}' $file1 > results/count_$s1.csv
+
+awk '{BC[$2]++}END{for(i in BC)print(i,BC[i])}' $file2> results/count_$s2.csv
+
+awk '{BC[$2]++}END{for(i in BC)print(i,BC[i])}' $file3> results/count_$s3.csv

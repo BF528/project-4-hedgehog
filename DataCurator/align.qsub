@@ -1,0 +1,31 @@
+#!/bin/bash
+/usr/bin/dos2unix -q ${BASH_ARGV[0]}
+ 
+#$ -cwd 
+#$ -P bf528 
+#$ -j y 
+#$ -pe mpi_16_tasks_per_node 16
+
+
+
+module load salmon
+
+
+r11='/projectnb/bf528/project_4_scrnaseq/fastq/SRR3879604/SRR3879604_1_bc.fastq.gz' 
+r12='/projectnb/bf528/project_4_scrnaseq/fastq/SRR3879604/SRR3879604_2.fastq.gz'
+whitelist1='./SRR3879604_whitelist.txt'  
+
+r21='/projectnb/bf528/project_4_scrnaseq/fastq/SRR3879605/SRR3879605_1_bc.fastq.gz'
+r22='/projectnb/bf528/project_4_scrnaseq/fastq/SRR3879605/SRR3879605_2.fastq.gz'
+whitelist2='./SRR3879605_whitelist.txt'
+
+r31='/projectnb/bf528/project_4_scrnaseq/fastq/SRR3879606/SRR3879606_1_bc.fastq.gz' 
+r32='/projectnb/bf528/project_4_scrnaseq/fastq/SRR3879606/SRR3879606_2.fastq.gz' 
+whitelist3='./SRR3879606_whitelist.txt'
+
+
+		
+salmon alevin -l ISR -1 $r11 $r21 $r31 -2 $r12 $r22 $r32 --end 5 --barcodeLength 19 --umiLength 6  -i ./salmon_index -p 16 -o ./salmon_output_combined --whitelist $whitelist1 $whitelist2 $whitelist3 --tgMap txp2gene.tsv
+
+
+
